@@ -67,7 +67,7 @@ export default function RegisterPage() {
               />
             </div>
           ))}
-          <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12">
+          <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer">
             Registrasi
           </button>
           <p className="w-fit mx-auto">
