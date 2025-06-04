@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
-import { AtSign, LockKeyhole } from "lucide-react";
+import { AtSign, LockKeyhole, User } from "lucide-react";
 import { useState } from "react";
 
-export default function LoginPage() {
+export function LoginRegisterComp() {
   const [isInputFill, setIsInputFill] = useState<string[]>([]);
 
   const inputs = [
@@ -13,7 +13,22 @@ export default function LoginPage() {
       type: "email",
     },
     {
-      placeholder: "masukan password anda",
+      placeholder: "nama depan",
+      icon: <User size={16} />,
+      type: "text",
+    },
+    {
+      placeholder: "nama belakang",
+      icon: <User size={16} />,
+      type: "text",
+    },
+    {
+      placeholder: "buat password",
+      icon: <LockKeyhole size={16} />,
+      type: "password",
+    },
+    {
+      placeholder: "konfirmasi password",
       icon: <LockKeyhole size={16} />,
       type: "password",
     },
@@ -27,12 +42,12 @@ export default function LoginPage() {
           <h3 className="font-bold text-xl">SIMS PPOB</h3>
         </div>
         <h1 className="font-bold text-center text-xl">
-          Masuk atau buat akun
-          <br /> untuk memulai
+          Lengkapi data untuk
+          <br /> membuat akun
         </h1>
         <div className="space-y-6 w-md">
           {inputs.map((input, index) => (
-            <div className="flex items-center border border-gray-300 rounded-sm px-2 py-2 space-x-2">
+            <div className="flex items-center border border-gray-300 rounded-sm px-2 py-2 space-x-2 focus-within:border-orange-600">
               <span
                 className={`${
                   isInputFill[index] ? "text-black" : "text-gray-400"
@@ -53,11 +68,11 @@ export default function LoginPage() {
             </div>
           ))}
           <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12">
-            Masuk
+            Registrasi
           </button>
           <p className="w-fit mx-auto">
-            Belum punya akun? registrasi{" "}
-            <Link to="/register" className="text-orange-600">
+            Sudah punya akun? login{" "}
+            <Link to="/login" className="text-orange-600">
               disini
             </Link>
           </p>

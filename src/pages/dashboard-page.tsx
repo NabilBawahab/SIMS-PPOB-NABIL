@@ -4,7 +4,7 @@ export default function DashboardPage() {
       <div className="flex justify-between px-10">
         <div className="flex-1">
           <div className="bg-blue-500 size-30" />
-          <p>Selamat datang,</p>
+          <p className="text-slate-800">Selamat datang,</p>
           <p>Bambang</p>
         </div>
         <div className="bg-[url('/backgroundsaldo.png')] bg-cover bg-center flex-1 rounded-xl p-4 text-white">
