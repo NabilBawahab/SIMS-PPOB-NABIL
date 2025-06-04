@@ -1,6 +1,6 @@
 import { href, Link } from "react-router-dom";
 
-export function FeaturesCard() {
+export function ServicesCard() {
   type Feature = {
     image: string;
     detail: string;

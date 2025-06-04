@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { FeaturesCard } from "../_components/features-card";
-import { PromotionalCard } from "../_components/promotional-card";
+import { ServicesCard } from "../_components/features-card";
+import { BannerCard } from "../_components/promotional-card";
 import { Avatar } from "../components/avatar";
 
 export default function DashboardPage() {
@@ -40,8 +40,8 @@ export default function DashboardPage() {
           </button>
         </div>
       </section>
-      <FeaturesCard />
-      <PromotionalCard />
+      <ServicesCard />
+      <BannerCard />
     </main>
   );
 }

@@ -2,11 +2,16 @@ import { Link } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
 import { AtSign, LockKeyhole } from "lucide-react";
 import { useState } from "react";
+import { login } from "../api/api-client";
+
+type Input = {
+  placeholder: string;
+  icon: React.ReactNode;
+  type: string;
+};
 
 export default function LoginPage() {
-  const [isInputFill, setIsInputFill] = useState<string[]>([]);
-
-  const inputs = [
+  const inputs: Input[] = [
     {
       placeholder: "masukan email anda",
       icon: <AtSign size={16} />,
@@ -18,6 +23,60 @@ export default function LoginPage() {
       type: "password",
     },
   ];
+
+  const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
+  const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));
+
+  //forms => [0] email, [1] password
+
+  const handleChange = (index: number, value: string) => {
+    const updated = [...forms];
+    updated[index] = value;
+    setForms(updated);
+
+    const resetErrors = [...errors];
+    resetErrors[index] = "";
+    setErrors(resetErrors);
+  };
+
+  const handleSubmit = async () => {
+    const checkError = [...errors];
+    let notComplete = false;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (!emailRegex.test(forms[0])) {
+      checkError[0] = "format email tidak valid";
+      notComplete = true;
+    }
+
+    if (forms[1].length < 8) {
+      checkError[1] = "Password harus lebih dari 8 karakter";
+      notComplete = true;
+    }
+
+    forms.forEach((isInputFills, index) => {
+      if (!isInputFills.trim()) {
+        checkError[index] = "field ini wajib diisi";
+        notComplete = true;
+      }
+    });
+
+    setErrors(checkError);
+
+    if (notComplete) return;
+
+    // console.log("Berhasil login", forms);
+
+    try {
+      const data = await login({ email: forms[0], password: forms[1] });
+      alert(data.message);
+      const token = data.data.token;
+      console.log({ token });
+    } catch (error) {
+      console.error("Error login user", error);
+      alert("login gagal, silahkan dicoba kembali di lain waktu");
+    }
+  };
 
   return (
     <main className="flex justify-between">
@@ -32,27 +91,37 @@ export default function LoginPage() {
         </h1>
         <div className="space-y-6 w-md">
           {inputs.map((input, index) => (
-            <div className="flex items-center border border-gray-300 rounded-sm px-2 py-2 space-x-2">
-              <span
+            <div key={index}>
+              <div
                 className={`${
-                  isInputFill[index] ? "text-black" : "text-gray-400"
-                }`}
+                  errors[index] && "border-red-500"
+                } flex items-center border border-gray-300 rounded-sm px-2 py-2 space-x-2 focus-within:border-orange-600`}
               >
-                {input.icon}
-              </span>
-              <input
-                placeholder={input.placeholder}
-                className="focus:outline-none w-full"
-                type={input.type}
-                onChange={(e) => {
-                  const updated = [...isInputFill];
-                  updated[index] = e.target.value;
-                  setIsInputFill(updated);
-                }}
-              />
+                <span
+                  className={`${forms[index] ? "text-black" : "text-gray-400"}`}
+                >
+                  {input.icon}
+                </span>
+                <input
+                  placeholder={input.placeholder}
+                  className="focus:outline-none w-full"
+                  type={input.type}
+                  onChange={(e) => {
+                    handleChange(index, e.target.value);
+                  }}
+                />
+              </div>
+              {errors[index] ? (
+                <p className="text-red-500 flex justify-end text-sm px-1">
+                  {errors[index]}
+                </p>
+              ) : null}
             </div>
           ))}
-          <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer">
+          <button
+            onClick={handleSubmit}
+            className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer"
+          >
             Masuk
           </button>
           <p className="w-fit mx-auto">

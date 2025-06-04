@@ -1,35 +1,47 @@
-export function PromotionalCard() {
-  type Promotion = {
-    image: string;
-  };
+import { useEffect, useState } from "react";
+import { getBanners } from "../api/api-client";
 
-  const promotions: Promotion[] = [
-    {
-      image: "/Banner 1.png",
-    },
-    {
-      image: "/Banner 2.png",
-    },
-    {
-      image: "/Banner 3.png",
-    },
-    {
-      image: "/Banner 4.png",
-    },
-    {
-      image: "/Banner 5.png",
-    },
-  ];
+type Banner = { banner_name: string; banner_image: string };
+
+export function BannerCard() {
+  // const banners: Banner[] = [
+  //   {
+  //     image: "/Banner 1.png",
+  //   },
+  //   {
+  //     image: "/Banner 2.png",
+  //   },
+  //   {
+  //     image: "/Banner 3.png",
+  //   },
+  //   {
+  //     image: "/Banner 4.png",
+  //   },
+  //   {
+  //     image: "/Banner 5.png",
+  //   },
+  // ];
+
+  const [banners, setBanners] = useState<Banner[]>([]);
+
+  useEffect(() => {
+    async function fetchBanners() {
+      const data = await getBanners();
+      setBanners(data.data || []);
+    }
+    fetchBanners();
+  }, []);
+
   return (
     <section className="space-y-7 px-10">
       <p className="font-medium">Temukan promo menarik</p>
       <div className="flex gap-6 overflow-x-auto space-y-4">
-        {promotions.map((promotion, index) => (
+        {banners.map((banner, index) => (
           <div key={index} className="shrink-0">
             <img
-              src={promotion.image}
+              src={banner.banner_image}
               className="object-contain"
-              alt={`Banner Promo ${index + 1}`}
+              alt={banner.banner_name}
             />
           </div>
         ))}
