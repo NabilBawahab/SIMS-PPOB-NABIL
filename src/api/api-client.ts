@@ -51,9 +51,62 @@ export async function login({ email, password }: LoginPayload) {
   return data;
 }
 
+export type GetProfileResponse = {
+  status: number;
+  message: string;
+  data: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string;
+  };
+};
+
+export async function getProfile(token: string | null) {
+  const res = await fetch(
+    "https://take-home-test-api.nutech-integrasi.com/profile",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  const data: GetProfileResponse = await res.json();
+
+  return data;
+}
+
+export async function getBalance(token: string | null) {
+  const res = await fetch(
+    "https://take-home-test-api.nutech-integrasi.com/balance",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  const data = await res.json();
+
+  return data;
+}
+
 export async function getBanners() {
   const res = await fetch(
     "https://take-home-test-api.nutech-integrasi.com/banner",
+  );
+  const data = await res.json();
+
+  return data;
+}
+
+export async function getServices(token: string | null) {
+  const res = await fetch(
+    "https://take-home-test-api.nutech-integrasi.com/services",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
   const data = await res.json();
 

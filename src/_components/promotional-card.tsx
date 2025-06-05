@@ -4,24 +4,6 @@ import { getBanners } from "../api/api-client";
 type Banner = { banner_name: string; banner_image: string };
 
 export function BannerCard() {
-  // const banners: Banner[] = [
-  //   {
-  //     image: "/Banner 1.png",
-  //   },
-  //   {
-  //     image: "/Banner 2.png",
-  //   },
-  //   {
-  //     image: "/Banner 3.png",
-  //   },
-  //   {
-  //     image: "/Banner 4.png",
-  //   },
-  //   {
-  //     image: "/Banner 5.png",
-  //   },
-  // ];
-
   const [banners, setBanners] = useState<Banner[]>([]);
 
   useEffect(() => {
@@ -40,7 +22,7 @@ export function BannerCard() {
           <div key={index} className="shrink-0">
             <img
               src={banner.banner_image}
-              className="object-contain"
+              className="object-contain w-96"
               alt={banner.banner_name}
             />
           </div>

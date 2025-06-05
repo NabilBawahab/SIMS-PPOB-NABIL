@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
 import { AtSign, LockKeyhole } from "lucide-react";
 import { useState } from "react";
 import { login } from "../api/api-client";
+import { useDispatch } from "react-redux";
+import { setToken } from "../store/auth-slice";
 
 type Input = {
   placeholder: string;
@@ -23,11 +25,12 @@ export default function LoginPage() {
       type: "password",
     },
   ];
-
+  //forms => [0] email, [1] password
   const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
   const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));
 
-  //forms => [0] email, [1] password
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (index: number, value: string) => {
     const updated = [...forms];
@@ -42,6 +45,7 @@ export default function LoginPage() {
   const handleSubmit = async () => {
     const checkError = [...errors];
     let notComplete = false;
+
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (!emailRegex.test(forms[0])) {
@@ -68,10 +72,14 @@ export default function LoginPage() {
     // console.log("Berhasil login", forms);
 
     try {
-      const data = await login({ email: forms[0], password: forms[1] });
-      alert(data.message);
+      const data = await login({
+        email: forms[0].trim(),
+        password: forms[1],
+      });
+      // alert(data.message);
       const token = data.data.token;
-      console.log({ token });
+      dispatch(setToken(token));
+      navigate("/dashboard");
     } catch (error) {
       console.error("Error login user", error);
       alert("login gagal, silahkan dicoba kembali di lain waktu");
@@ -83,7 +91,7 @@ export default function LoginPage() {
       <section className="flex flex-1 flex-col items-center justify-center w-1/2 gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />
-          <h3 className="font-bold text-xl">SIMS PPOB</h3>
+          <h3 className="font-bold text-xl">SIMS PPOB NABIL</h3>
         </div>
         <h1 className="font-bold text-center text-xl">
           Masuk atau buat akun

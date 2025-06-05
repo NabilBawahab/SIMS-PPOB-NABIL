@@ -1,6 +1,24 @@
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
+import { useAuth } from "../utils/auth";
 
 export default function DashboardLayout() {
+  // validasi
+  const navigate = useNavigate();
+  const token = useAuth();
+  const isInitialized = useSelector(
+    (state: RootState) => state.auth.isInitialized,
+  );
+
+  useEffect(() => {
+    if (isInitialized && !token) {
+      navigate("/login");
+    }
+  }, [token, isInitialized, navigate]);
+
   return (
     <>
       <header className="border border-gray-200 px-20">
@@ -12,7 +30,7 @@ export default function DashboardLayout() {
           <section className="flex gap-10 items-center font-medium">
             <Link to="/">Top up</Link>
             <Link to="/">Transactions</Link>
-            <Link to="/">Account</Link>
+            <Link to="/dashboard/profile">Account</Link>
           </section>
         </div>
       </header>

@@ -109,7 +109,7 @@ export default function RegisterPage() {
       <section className="flex flex-1 flex-col items-center justify-center w-1/2 gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />
-          <h3 className="font-bold text-xl">SIMS PPOB</h3>
+          <h3 className="font-bold text-xl">SIMS PPOB NABIL</h3>
         </div>
         <h1 className="font-bold text-center text-xl">
           Lengkapi data untuk
