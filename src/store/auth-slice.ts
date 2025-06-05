@@ -3,11 +3,13 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 type AuthState = {
   token: string | null;
   isInitialized: boolean;
+  isAuthenticated: boolean;
 };
 // initial state dari token
 const initialState: AuthState = {
   token: null,
   isInitialized: false,
+  isAuthenticated: !!localStorage.getItem("token"),
 };
 // Membuat slice bernama "auth" dan menyimpan nilai token
 const authSlice = createSlice({

@@ -8,16 +8,16 @@ import { useAuth } from "../utils/auth";
 export default function DashboardLayout() {
   // validasi
   const navigate = useNavigate();
-  const token = useAuth();
-  const isInitialized = useSelector(
-    (state: RootState) => state.auth.isInitialized,
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
   );
 
   useEffect(() => {
-    if (isInitialized && !token) {
+    if (!isAuthenticated) {
       navigate("/login");
     }
-  }, [token, isInitialized, navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <>

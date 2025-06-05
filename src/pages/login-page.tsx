@@ -5,6 +5,7 @@ import { useState } from "react";
 import { login } from "../api/api-client";
 import { useDispatch } from "react-redux";
 import { setToken } from "../store/auth-slice";
+import { useLoginMutation } from "../store/backend-api";
 
 type Input = {
   placeholder: string;
@@ -28,6 +29,13 @@ export default function LoginPage() {
   //forms => [0] email, [1] password
   const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
   const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));
+
+  const [
+    login,
+    {
+      /*{ data, error, isLoading, isSuccess }*/
+    },
+  ] = useLoginMutation();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -72,12 +80,17 @@ export default function LoginPage() {
     // console.log("Berhasil login", forms);
 
     try {
-      const data = await login({
+      // const data = await login({
+      //   email: forms[0].trim(),
+      //   password: forms[1],
+      // });
+      // alert(data.message);
+      const result = await login({
         email: forms[0].trim(),
         password: forms[1],
-      });
-      // alert(data.message);
-      const token = data.data.token;
+      }).unwrap();
+
+      const token = result.data.token;
       dispatch(setToken(token));
       navigate("/dashboard");
     } catch (error) {

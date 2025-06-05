@@ -4,21 +4,21 @@ import LoginPage from "./pages/login-page";
 import DashboardPage from "./pages/dashboard-page";
 import DashboardLayout from "./pages/dashboard-layout";
 import Home from "./pages";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setToken } from "./store/auth-slice";
+// import { useEffect } from "react";
+// import { useDispatch } from "react-redux";
+// import { setToken } from "./store/auth-slice";
 import DashboardProfile from "./pages/dashboard-profile";
 
 export default function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
 
-    if (token) {
-      dispatch(setToken(token));
-    }
-  }, [dispatch]);
+  //   if (token) {
+  //     dispatch(setToken(token));
+  //   }
+  // }, [dispatch]);
 
   return (
     <BrowserRouter>
