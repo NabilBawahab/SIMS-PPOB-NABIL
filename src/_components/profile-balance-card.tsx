@@ -1,6 +1,5 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { Avatar } from "../components/avatar";
-import { getBalance, getProfile } from "../api/api-client";
 import { Eye, EyeClosed } from "lucide-react";
 import { useGetBalanceQuery, useGetProfileQuery } from "../store/backend-api";
 

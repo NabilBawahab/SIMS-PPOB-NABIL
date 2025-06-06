@@ -19,6 +19,9 @@ export function TransactionPage() {
   const [transaction] = useTransactionMutation();
   const navigate = useNavigate();
 
+  if (error) return <div>Error occured</div>;
+  if (isLoading) return <div>Loading...</div>;
+
   const service = services?.data.find(
     (item) => item.service_code === serviceCode,
   );

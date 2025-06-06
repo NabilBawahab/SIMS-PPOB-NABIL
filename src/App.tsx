@@ -6,7 +6,7 @@ import DashboardLayout from "./pages/dashboard-layout";
 import Home from "./pages";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { initializeAuth, setToken } from "./store/auth-slice";
+import { initializeAuth } from "./store/auth-slice";
 import DashboardProfile from "./pages/dashboard-profile";
 import DashboardTopUp from "./pages/dashboard-topup";
 import DashboardTransaction from "./pages/dashboard-transaction";

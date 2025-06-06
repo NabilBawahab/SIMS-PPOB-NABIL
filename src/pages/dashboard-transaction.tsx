@@ -46,7 +46,10 @@ export default function DashboardTransaction() {
             });
 
             return (
-              <div className="flex justify-between border border-gray-200 rounded-md max-w-full px-4 py-3">
+              <div
+                key={index}
+                className="flex justify-between border border-gray-200 rounded-md max-w-full px-4 py-3"
+              >
                 <div>
                   {record.transaction_type === "TOPUP" ? (
                     <div className="flex gap-2 items-center text-green-500 font-bold text-xl">
