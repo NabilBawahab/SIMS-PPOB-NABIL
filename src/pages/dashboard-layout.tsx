@@ -30,7 +30,7 @@ export default function DashboardLayout() {
             <p className="font-sans font-medium">SIMS PPOB</p>
           </section>
           <section className="flex gap-10 items-center font-medium">
-            <Link to="/">Top up</Link>
+            <Link to="/dashboard/topup">Top up</Link>
             <Link to="/">Transactions</Link>
             <Link to="/dashboard/profile">Account</Link>
           </section>

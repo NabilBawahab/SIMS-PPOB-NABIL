@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { initializeAuth, setToken } from "./store/auth-slice";
 import DashboardProfile from "./pages/dashboard-profile";
+import DashboardTopUp from "./pages/dashboard-topup";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default function App() {
       <Route path="/dashboard" element={<DashboardLayout />}>
         <Route index element={<DashboardPage />} />
         <Route path="/dashboard/profile" element={<DashboardProfile />} />
+        <Route path="/dashboard/topup" element={<DashboardTopUp />} />
       </Route>
     </Routes>
   );

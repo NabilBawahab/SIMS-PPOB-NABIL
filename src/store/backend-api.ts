@@ -53,6 +53,14 @@ export type UpdateProfileResponse = {
   };
 };
 
+export type BalanceResponse = {
+  status: number;
+  message: string;
+  data: {
+    balance: number;
+  };
+};
+
 export type LoginRequest = { email: string; password: string };
 
 export type UpdateProfileRequest = { first_name: string; last_name: string };
@@ -100,6 +108,9 @@ export const backendApi = createApi({
         body: { first_name, last_name },
       }),
     }),
+    getBalance: build.query<BalanceResponse, undefined>({
+      query: () => "/balance",
+    }),
   }),
 });
 
@@ -109,4 +120,5 @@ export const {
   useLoginMutation,
   useGetProfileQuery,
   useUpdateProfileMutation,
+  useGetBalanceQuery,
 } = backendApi;
