@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar } from "../components/avatar";
-import { AtSign, User } from "lucide-react";
+import { AtSign, Pencil, User } from "lucide-react";
 import {
   useGetProfileQuery,
+  useUpdateProfileImageMutation,
   useUpdateProfileMutation,
 } from "../store/backend-api";
 import { useDispatch } from "react-redux";
@@ -26,8 +27,18 @@ export default function DashboardProfile() {
     refetch,
   } = useGetProfileQuery(undefined);
   const [updateProfile] = useUpdateProfileMutation();
+  const [updateProfileImage] = useUpdateProfileImageMutation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const initialForm = [
+      profile?.data.email ?? "",
+      profile?.data.first_name ?? "",
+      profile?.data.last_name ?? "",
+    ];
+    setForm(initialForm);
+  }, [profile]);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error occurred!</p>;
@@ -57,6 +68,23 @@ export default function DashboardProfile() {
     navigate("/login");
   };
 
+  const handleFileUpload = async (file: File | undefined) => {
+    if (!file) return;
+
+    // multipart file
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      await updateProfileImage(formData).unwrap();
+      refetch();
+      alert("berhasil upload file");
+    } catch (error) {
+      console.error("error uploading image", error);
+      alert("Gagal mengupload file");
+    }
+  };
+
   const inputs: Input[] = [
     {
       title: "Email",
@@ -84,10 +112,26 @@ export default function DashboardProfile() {
   return (
     <main className="flex flex-col items-center py-16">
       <section className="flex flex-col items-center space-y-6">
-        <div className="relative border border-gray-200 size-52 rounded-full overflow-hidden">
-          <Avatar
-            userFullName={`${profile?.data.first_name} ${profile?.data.last_name}`}
-          />
+        <div className="relative">
+          <div className="bottom-0 right-0 border border-gray-200 size-52 rounded-full overflow-hidden">
+            <Avatar
+              userFullName={`${profile?.data.first_name} ${profile?.data.last_name}`}
+              imageUrl={profile?.data.profile_image}
+            />
+          </div>
+          <div className="absolute bottom-0 right-7 bg-white p-1 rounded-full shadow">
+            <label>
+              <Pencil size={20} />
+              <input
+                type="file"
+                accept="image/png,image/jpeg"
+                className="absolute inset-0 w-full h-full opacity-0"
+                onChange={(e) => {
+                  handleFileUpload(e.target.files?.[0]);
+                }}
+              />
+            </label>
+          </div>
         </div>
         <p className="font-bold text-gray-800 text-3xl mb-10">{`${profile?.data.first_name} ${profile?.data.last_name}`}</p>
       </section>

@@ -11,6 +11,10 @@ export default function DashboardTransaction() {
     refetch,
   } = useGetTransactionHistoryQuery(undefined);
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -18,10 +22,6 @@ export default function DashboardTransaction() {
   if (error) {
     return <div>Error occured</div>;
   }
-
-  useEffect(() => {
-    refetch();
-  }, []);
 
   return (
     <ProfileBalanceCard>

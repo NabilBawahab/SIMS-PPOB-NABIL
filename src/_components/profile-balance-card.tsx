@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Avatar } from "../components/avatar";
 import { Eye, EyeClosed } from "lucide-react";
 import { useGetBalanceQuery, useGetProfileQuery } from "../store/backend-api";
@@ -18,7 +18,12 @@ export const ProfileBalanceCard = ({ children }: Props) => {
     data: balance,
     error: balanceError,
     isLoading: isBalanceLoading,
+    refetch,
   } = useGetBalanceQuery(undefined);
+
+  useEffect(() => {
+    refetch();
+  }, []);
 
   if (profileError) {
     return <div>Error Occured</div>;
@@ -38,7 +43,7 @@ export const ProfileBalanceCard = ({ children }: Props) => {
 
   return (
     <main className="max-w-11/12 mx-auto">
-      <section className="flex justify-between px-10 py-8">
+      <section className="flex flex-col gap-5 md:flex-row justify-between px-10 py-8">
         <div className="flex-1 space-y-4">
           <div className="border border-gray-200 size-16 rounded-full overflow-hidden">
             <Avatar

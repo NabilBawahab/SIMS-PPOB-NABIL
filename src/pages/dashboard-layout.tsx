@@ -23,15 +23,15 @@ export default function DashboardLayout() {
 
   return (
     <>
-      <header className="border border-gray-200 px-20">
-        <div className="flex justify-between items-center h-16 px-8 text-gray-800">
+      <header className="border border-gray-200 px-20 py-2">
+        <div className="flex justify-between flex-col md:flex-row items-center h-16 px-8 text-gray-800">
           <section className="flex items-center gap-2">
             <img src="/logo.png" width={25} />
             <Link to="/dashboard" className="font-sans font-medium">
               SIMS PPOB NABIL
             </Link>
           </section>
-          <section className="flex gap-10 items-center font-medium">
+          <section className="flex gap-10 items-center text-sm md:text-base font-medium">
             <Link to="/dashboard/topup">Top up</Link>
             <Link to="/dashboard/transaction">Transactions</Link>
             <Link to="/dashboard/profile">Account</Link>

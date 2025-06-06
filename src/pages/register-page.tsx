@@ -122,8 +122,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex justify-between">
-      <section className="flex flex-1 flex-col items-center justify-center w-1/2 gap-8">
+    <main className="flex flex-col-reverse justify-between md:flex-row gap-10 md:gap-0 mb-10">
+      <section className="flex flex-1 flex-col items-center justify-center gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />
           <h3 className="font-bold text-xl">SIMS PPOB NABIL</h3>
@@ -132,7 +132,7 @@ export default function RegisterPage() {
           Lengkapi data untuk
           <br /> membuat akun
         </h1>
-        <div className="space-y-6 w-md">
+        <div className="space-y-6 md:w-md">
           {inputs.map((input, index) => (
             <div>
               <div

@@ -8,7 +8,7 @@ export function ServicesCard() {
   if (error) return <p>Error occurred!</p>;
 
   return (
-    <section className="flex justify-between px-6">
+    <section className="grid grid-cols-3 md:flex md:justify-between px-6 ">
       {services?.data.map((service, index) => (
         <Link
           key={index}

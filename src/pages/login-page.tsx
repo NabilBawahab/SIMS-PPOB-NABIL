@@ -107,8 +107,8 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex justify-between">
-      <section className="flex flex-1 flex-col items-center justify-center w-1/2 gap-8">
+    <main className="flex flex-col-reverse mb-10 gap-10 justify-between md:flex-row md:gap-0">
+      <section className="flex flex-1 flex-col items-center justify-center gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />
           <h3 className="font-bold text-xl">SIMS PPOB NABIL</h3>
@@ -117,7 +117,7 @@ export default function LoginPage() {
           Masuk atau buat akun
           <br /> untuk memulai
         </h1>
-        <div className="space-y-6 w-md">
+        <div className="space-y-6 md:w-md">
           {inputs.map((input, index) => (
             <div key={index}>
               <div

@@ -6,8 +6,6 @@ import {
   useTransactionMutation,
 } from "../store/backend-api";
 
-const amount = 40000;
-
 export function TransactionPage() {
   const { serviceCode } = useParams<{ serviceCode: string }>();
   const {
@@ -31,7 +29,11 @@ export function TransactionPage() {
   const handleSubmit = async () => {
     try {
       const confirmed = confirm(
-        `Pembayaran ${service.service_name} sebesar Rp${amount}, apakah anda yakin?`,
+        `Pembayaran ${
+          service.service_name
+        } sebesar Rp${service.service_tariff.toLocaleString(
+          "id-ID",
+        )}, apakah anda yakin?`,
       );
       if (!confirmed) return;
 
@@ -62,7 +64,7 @@ export function TransactionPage() {
               <div className="flex items-center border rounded-sm px-3 py-2 mb-4 w-full gap-2">
                 <CreditCard size={16} />
                 <input
-                  value={amount.toLocaleString("id-ID")}
+                  value={service.service_tariff.toLocaleString("id-ID")}
                   className="outline-none"
                 />
               </div>

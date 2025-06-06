@@ -51,7 +51,7 @@ export default function DashboardTopUp() {
           <p className="font-medium text-gray-900">Silahkan masukan</p>
           <p className="text-2xl font-bold mb-16">Nominal Top Up</p>
         </div>
-        <div className="flex">
+        <div className="flex flex-col gap-10 md:flex-row md:gap-0">
           <section className="px-10 flex-1">
             <div>
               <div className="flex items-center border rounded-sm px-3 py-2 mb-4 w-full gap-2">
@@ -76,7 +76,7 @@ export default function DashboardTopUp() {
               <button
                 key={index}
                 onClick={() => handleAmountChange(preset)}
-                className="border rounded px-4 py-2 hover:bg-orange-600 hover:text-white"
+                className="border rounded px-4 py-2 hover:bg-[#f13b2f] hover:text-white hover:cursor-pointer transition-colors duration-200"
               >
                 Rp{preset.toLocaleString("id-ID")}
               </button>

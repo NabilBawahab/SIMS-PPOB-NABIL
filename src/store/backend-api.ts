@@ -103,6 +103,17 @@ export type TransactionHistoryResponse = {
   };
 };
 
+export type UpdateProfileImageResponse = {
+  status: number;
+  message: string;
+  data: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string;
+  };
+};
+
 export type RegisterRequest = {
   email: string;
   first_name: string;
@@ -119,6 +130,8 @@ export type TopUpRequest = {
 };
 
 export type TransactionRequest = { service_code: string };
+
+export type UpdateProfileImageRequest = FormData;
 
 export const backendApi = createApi({
   reducerPath: "backendApi",
@@ -191,6 +204,16 @@ export const backendApi = createApi({
     getTransactionHistory: build.query<TransactionHistoryResponse, undefined>({
       query: () => "/transaction/history",
     }),
+    updateProfileImage: build.mutation<
+      UpdateProfileImageResponse,
+      UpdateProfileImageRequest
+    >({
+      query: (formData) => ({
+        url: "/profile/image",
+        method: "PUT",
+        body: formData,
+      }),
+    }),
   }),
 });
 
@@ -205,4 +228,5 @@ export const {
   useTransactionMutation,
   useGetTransactionHistoryQuery,
   useRegisterMutation,
+  useUpdateProfileImageMutation,
 } = backendApi;
