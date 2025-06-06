@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Avatar } from "../components/avatar";
 import { AtSign, User } from "lucide-react";
-import { useGetProfileQuery } from "../store/backend-api";
+import {
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+} from "../store/backend-api";
+import { useDispatch } from "react-redux";
+import { logout } from "../store/auth-slice";
+import { useNavigate } from "react-router-dom";
 
 type Input = {
   title: string;
@@ -12,22 +18,44 @@ type Input = {
 };
 
 export default function DashboardProfile() {
-  // const [user, setUser] = useState<GetProfileResponse>();
-
-  // const token = useAuth();
-
-  // useEffect(() => {
-  //   async function fetchUserProfile() {
-  //     const data = await getProfile(token);
-  //     setUser(data);
-  //   }
-  //   fetchUserProfile();
-  // }, [token]);
-
-  const { data: profile, error, isLoading } = useGetProfileQuery(undefined);
+  const [form, setForm] = useState<string[]>([]);
+  const {
+    data: profile,
+    error,
+    isLoading,
+    refetch,
+  } = useGetProfileQuery(undefined);
+  const [updateProfile] = useUpdateProfileMutation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error occurred!</p>;
+
+  const handleChange = (index: number, value: string) => {
+    const newForm = [...form];
+    newForm[index] = value;
+    setForm(newForm);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await updateProfile({
+        first_name: form[1].trim(),
+        last_name: form[2].trim(),
+      }).unwrap();
+      alert("berhasil update profil");
+      refetch();
+    } catch (error) {
+      console.error("gagal update profile", error);
+      alert("Terjadi kesalahan saat update profil");
+    }
+  };
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/login");
+  };
 
   const inputs: Input[] = [
     {
@@ -72,14 +100,30 @@ export default function DashboardProfile() {
               <input
                 className="focus:outline-none w-full"
                 type={input.type}
-                value={input.value}
+                defaultValue={input.value}
                 disabled={input.disabled}
+                onChange={(e) => handleChange(index, e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    handleSubmit();
+                  }
+                }}
               />
             </div>
           </div>
         ))}
-        <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer">
+        <button
+          onClick={handleSubmit}
+          className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer"
+        >
           Simpan
+        </button>
+        <button
+          onClick={handleLogout}
+          className="flex justify-center border border-red-600 text-red-600 w-full py-2 rounded-sm mt-4 hover:cursor-pointer"
+        >
+          Logout
         </button>
       </section>
     </main>

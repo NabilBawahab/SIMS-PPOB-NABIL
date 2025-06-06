@@ -42,8 +42,20 @@ export type ProfileResponse = {
   };
 };
 
+export type UpdateProfileResponse = {
+  status: number;
+  message: string;
+  data: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string;
+  };
+};
+
 export type LoginRequest = { email: string; password: string };
 
+export type UpdateProfileRequest = { first_name: string; last_name: string };
 export const backendApi = createApi({
   reducerPath: "backendApi",
   baseQuery: fetchBaseQuery({
@@ -81,6 +93,13 @@ export const backendApi = createApi({
     getProfile: build.query<ProfileResponse, undefined>({
       query: () => "/profile",
     }),
+    updateProfile: build.mutation<UpdateProfileResponse, UpdateProfileRequest>({
+      query: ({ first_name, last_name }) => ({
+        url: "/profile/update",
+        method: "PUT",
+        body: { first_name, last_name },
+      }),
+    }),
   }),
 });
 
@@ -89,4 +108,5 @@ export const {
   useGetBannersQuery,
   useLoginMutation,
   useGetProfileQuery,
+  useUpdateProfileMutation,
 } = backendApi;
