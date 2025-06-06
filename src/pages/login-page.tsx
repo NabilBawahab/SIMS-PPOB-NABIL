@@ -13,19 +13,20 @@ type Input = {
   type: string;
 };
 
+const inputs: Input[] = [
+  {
+    placeholder: "masukan email anda",
+    icon: <AtSign size={16} />,
+    type: "email",
+  },
+  {
+    placeholder: "masukan password anda",
+    icon: <LockKeyhole size={16} />,
+    type: "password",
+  },
+];
+
 export default function LoginPage() {
-  const inputs: Input[] = [
-    {
-      placeholder: "masukan email anda",
-      icon: <AtSign size={16} />,
-      type: "email",
-    },
-    {
-      placeholder: "masukan password anda",
-      icon: <LockKeyhole size={16} />,
-      type: "password",
-    },
-  ];
   //forms => [0] email, [1] password
   const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
   const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));

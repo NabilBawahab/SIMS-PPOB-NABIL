@@ -53,6 +53,14 @@ export type UpdateProfileResponse = {
   };
 };
 
+export type TopUpResponse = {
+  status: number;
+  message: string;
+  data: {
+    balance: number;
+  };
+};
+
 export type BalanceResponse = {
   status: number;
   message: string;
@@ -64,6 +72,11 @@ export type BalanceResponse = {
 export type LoginRequest = { email: string; password: string };
 
 export type UpdateProfileRequest = { first_name: string; last_name: string };
+
+export type TopUpRequest = {
+  top_up_amount: number;
+};
+
 export const backendApi = createApi({
   reducerPath: "backendApi",
   baseQuery: fetchBaseQuery({
@@ -111,6 +124,13 @@ export const backendApi = createApi({
     getBalance: build.query<BalanceResponse, undefined>({
       query: () => "/balance",
     }),
+    topUp: build.mutation<TopUpResponse, TopUpRequest>({
+      query: ({ top_up_amount }) => ({
+        url: "/topup",
+        method: "POST",
+        body: { top_up_amount },
+      }),
+    }),
   }),
 });
 
@@ -121,4 +141,5 @@ export const {
   useGetProfileQuery,
   useUpdateProfileMutation,
   useGetBalanceQuery,
+  useTopUpMutation,
 } = backendApi;

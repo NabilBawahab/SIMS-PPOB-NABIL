@@ -1,18 +1,6 @@
 import { useGetServicesQuery } from "../store/backend-api";
 
 export function ServicesCard() {
-  // const [services, setServices] = useState<Service[]>([]);
-
-  // const token = useAuth();
-
-  // useEffect(() => {
-  //   async function fetchServices() {
-  //     const data = await getServices(token);
-  //     setServices(data.data || []);
-  //   }
-  //   fetchServices();
-  // }, [token]);
-
   const { data: services, error, isLoading } = useGetServicesQuery(undefined);
 
   if (isLoading) return <p>Loading...</p>;

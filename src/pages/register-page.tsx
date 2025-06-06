@@ -1,8 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
 import { AtSign, LockKeyhole, User } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { register } from "../api/api-client";
+import type { RootState } from "../store/store";
+import { useSelector } from "react-redux";
 
 type Input = {
   placeholder: string;
@@ -10,39 +12,53 @@ type Input = {
   type: string;
 };
 
-export default function RegisterPage() {
-  const inputs: Input[] = [
-    {
-      placeholder: "masukan email anda",
-      icon: <AtSign size={16} />,
-      type: "email",
-    },
-    {
-      placeholder: "nama depan",
-      icon: <User size={16} />,
-      type: "text",
-    },
-    {
-      placeholder: "nama belakang",
-      icon: <User size={16} />,
-      type: "text",
-    },
-    {
-      placeholder: "buat password",
-      icon: <LockKeyhole size={16} />,
-      type: "password",
-    },
-    {
-      placeholder: "konfirmasi password",
-      icon: <LockKeyhole size={16} />,
-      type: "password",
-    },
-  ];
+const inputs: Input[] = [
+  {
+    placeholder: "masukan email anda",
+    icon: <AtSign size={16} />,
+    type: "email",
+  },
+  {
+    placeholder: "nama depan",
+    icon: <User size={16} />,
+    type: "text",
+  },
+  {
+    placeholder: "nama belakang",
+    icon: <User size={16} />,
+    type: "text",
+  },
+  {
+    placeholder: "buat password",
+    icon: <LockKeyhole size={16} />,
+    type: "password",
+  },
+  {
+    placeholder: "konfirmasi password",
+    icon: <LockKeyhole size={16} />,
+    type: "password",
+  },
+];
 
+export default function RegisterPage() {
   const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
   const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));
 
   //forms => [0] email, [1] nama depan, [2] nama belakang, [3] password, [4] konfirmasi password
+  const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
+  const isInitialized = useSelector(
+    (state: RootState) => state.auth.isInitialized,
+  );
+
+  useEffect(() => {
+    if (isAuthenticated && isInitialized) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, isInitialized, navigate]);
 
   const handleChange = (index: number, value: string) => {
     const updated = [...forms];

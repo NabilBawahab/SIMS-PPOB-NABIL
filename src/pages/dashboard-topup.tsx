@@ -1,14 +1,34 @@
 import { CreditCard } from "lucide-react";
 import { ProfileBalanceCard } from "../_components/profile-balance-card";
 import { useState } from "react";
+import { useGetBalanceQuery, useTopUpMutation } from "../store/backend-api";
+import { useNavigate } from "react-router-dom";
 
 const presets = [10000, 20000, 50000, 100000, 250000, 500000];
 
 export default function DashboardTopUp() {
-  const [amount, setAmount] = useState<number>(10000);
+  const [amount, setAmount] = useState<number>(0);
+  const navigate = useNavigate();
+  const { refetch } = useGetBalanceQuery(undefined);
+  const [topUp] = useTopUpMutation();
 
-  const handleSubmit = (value: number) => {
+  const handleAmountChange = (value: number) => {
     setAmount(value);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      await topUp({
+        top_up_amount: amount,
+      }).unwrap();
+
+      await refetch();
+      alert(`Berhasil Top Up senilai Rp ${amount}`);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Top Up tidak berhasil", error);
+      alert("Top Up gagal, mohon dicoba kembali");
+    }
   };
   //   const stringlocale = amount.toLocaleString("id-ID");
   //   console.log({ stringlocale });
@@ -32,7 +52,10 @@ export default function DashboardTopUp() {
               </div>
             </div>
             <div>
-              <button className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm hover:cursor-pointer">
+              <button
+                onClick={handleSubmit}
+                className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm hover:cursor-pointer"
+              >
                 Top Up
               </button>
             </div>
@@ -41,7 +64,7 @@ export default function DashboardTopUp() {
             {presets.map((preset, index) => (
               <button
                 key={index}
-                onClick={() => handleSubmit(preset)}
+                onClick={() => handleAmountChange(preset)}
                 className="border rounded px-4 py-2 hover:bg-orange-600 hover:text-white"
               >
                 Rp{preset.toLocaleString("id-ID")}

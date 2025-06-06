@@ -8,13 +8,6 @@ type Props = {
   children?: ReactNode;
 };
 
-// type User = {
-//   email: string;
-//   first_name: string;
-//   last_name: string;
-//   profile_image: string;
-// };
-
 export const ProfileBalanceCard = ({ children }: Props) => {
   const [showBalance, setShowBalance] = useState<boolean>(false);
   const {
@@ -27,19 +20,22 @@ export const ProfileBalanceCard = ({ children }: Props) => {
     error: balanceError,
     isLoading: isBalanceLoading,
   } = useGetBalanceQuery(undefined);
-  // const token = localStorage.getItem("token");
 
-  // useEffect(() => {
-  //   async function fetchUserData() {
-  //     const [dataUser, dataBalance] = await Promise.all([
-  //       getProfile(token),
-  //       getBalance(token),
-  //     ]);
-  //     setUser(dataUser.data || null);
-  //     setBalance(dataBalance.data || 0);
-  //   }
-  //   fetchUserData();
-  // }, []);
+  if (profileError) {
+    return <div>Error Occured</div>;
+  }
+
+  if (balanceError) {
+    return <div>Error Occured</div>;
+  }
+
+  if (isProfileLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isBalanceLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <main className="max-w-11/12 mx-auto">
