@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getProfile } from "../api/api-client";
 // import type { RootState } from "./store";
 
 export type ServicesResponse = {
@@ -27,6 +28,17 @@ export type LoginResponse = {
   message: string;
   data: {
     token: string;
+  };
+};
+
+export type ProfileResponse = {
+  status: number;
+  message: string;
+  data: {
+    email: string;
+    first_name: string;
+    last_name: string;
+    profile_image: string;
   };
 };
 
@@ -66,8 +78,15 @@ export const backendApi = createApi({
         body: { email, password },
       }),
     }),
+    getProfile: build.query<ProfileResponse, undefined>({
+      query: () => "/profile",
+    }),
   }),
 });
 
-export const { useGetServicesQuery, useGetBannersQuery, useLoginMutation } =
-  backendApi;
+export const {
+  useGetServicesQuery,
+  useGetBannersQuery,
+  useLoginMutation,
+  useGetProfileQuery,
+} = backendApi;

@@ -11,12 +11,15 @@ export default function DashboardLayout() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   );
+  const isInitialized = useSelector(
+    (state: RootState) => state.auth.isInitialized,
+  );
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isAuthenticated && isInitialized) {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, isInitialized, navigate]);
 
   return (
     <>

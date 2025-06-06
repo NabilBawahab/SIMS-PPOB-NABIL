@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
 import { AtSign, LockKeyhole } from "lucide-react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setToken } from "../store/auth-slice";
 import { useLoginMutation } from "../store/backend-api";
+import type { RootState } from "../store/store";
 
 type Input = {
   placeholder: string;
@@ -38,6 +39,19 @@ export default function LoginPage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
+  const isInitialized = useSelector(
+    (state: RootState) => state.auth.isInitialized,
+  );
+
+  useEffect(() => {
+    if (isAuthenticated && isInitialized) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, isInitialized, navigate]);
 
   const handleChange = (index: number, value: string) => {
     const updated = [...forms];
@@ -88,7 +102,6 @@ export default function LoginPage() {
         email: forms[0].trim(),
         password: forms[1],
       }).unwrap();
-      console.log("login result", result);
 
       const token = result.data.token;
       dispatch(setToken(token));

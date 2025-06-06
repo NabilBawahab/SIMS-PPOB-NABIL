@@ -21,6 +21,7 @@ const authSlice = createSlice({
       //persist
       localStorage.setItem("token", action.payload);
       state.isInitialized = true;
+      state.isAuthenticated = true;
     },
     logout: (state) => {
       state.token = null;
@@ -31,10 +32,11 @@ const authSlice = createSlice({
       const token = localStorage.getItem("token");
       state.token = token;
       state.isInitialized = true;
+      state.isAuthenticated = !!token;
     },
   },
 });
 
 // action setToken, logout, untuk dipakai di komponen
-export const { setToken, logout } = authSlice.actions;
+export const { setToken, logout, initializeAuth } = authSlice.actions;
 export default authSlice.reducer;
