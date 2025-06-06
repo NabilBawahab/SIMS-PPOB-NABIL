@@ -88,6 +88,7 @@ export default function LoginPage() {
         email: forms[0].trim(),
         password: forms[1],
       }).unwrap();
+      console.log("login result", result);
 
       const token = result.data.token;
       dispatch(setToken(token));
