@@ -1,7 +1,7 @@
 import { personas } from "@dicebear/collection";
 import { createAvatar } from "@dicebear/core";
 
-export function Avatar({ imageUrl, userFullName }: any) {
+export function Avatar({ userFullName }: any) {
   const avatar = createAvatar(personas, {
     seed: userFullName,
   });

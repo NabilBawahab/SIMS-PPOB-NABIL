@@ -1,16 +1,4 @@
-import { useEffect, useState } from "react";
-import { getServices } from "../api/api-client";
-import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
-import { useAuth } from "../utils/auth";
 import { useGetServicesQuery } from "../store/backend-api";
-
-type Service = {
-  service_code: string;
-  service_name: string;
-  service_icon: string;
-  service_tariff: number;
-};
 
 export function ServicesCard() {
   // const [services, setServices] = useState<Service[]>([]);

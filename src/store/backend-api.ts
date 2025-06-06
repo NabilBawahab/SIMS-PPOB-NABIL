@@ -36,7 +36,12 @@ export const backendApi = createApi({
   reducerPath: "backendApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://take-home-test-api.nutech-integrasi.com",
-    prepareHeaders: (headers, { getState }) => {
+    prepareHeaders: (
+      headers,
+      {
+        /*{ getState }*/
+      },
+    ) => {
       // const token = (getState() as RootState).auth.token;
       const token = localStorage.getItem("token");
       if (token) {

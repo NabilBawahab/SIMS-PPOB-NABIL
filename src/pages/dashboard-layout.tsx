@@ -3,7 +3,6 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
-import { useAuth } from "../utils/auth";
 
 export default function DashboardLayout() {
   // validasi

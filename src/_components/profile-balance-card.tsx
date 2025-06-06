@@ -1,15 +1,21 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Avatar } from "../components/avatar";
-import { useAuth } from "../utils/auth";
 import { getBalance, getProfile } from "../api/api-client";
 
 type Props = {
   children?: ReactNode;
 };
 
+type User = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  profile_image: string;
+};
+
 export const ProfileBalanceCard = ({ children }: Props) => {
   const [showBalance, setShowBalance] = useState<boolean>(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [balance, setBalance] = useState<number>();
 
   const token = localStorage.getItem("token");
@@ -20,7 +26,7 @@ export const ProfileBalanceCard = ({ children }: Props) => {
         getProfile(token),
         getBalance(token),
       ]);
-      setUser(dataUser.data || {});
+      setUser(dataUser.data || null);
       setBalance(dataBalance.data || 0);
     }
     fetchUserData();
@@ -48,7 +54,7 @@ export const ProfileBalanceCard = ({ children }: Props) => {
             {showBalance
               ? new Intl.NumberFormat("id-ID", {
                   minimumFractionDigits: 0,
-                }).format(balance?.balance)
+                }).format(balance ?? 0)
               : "•••••••"}
           </p>
           <button

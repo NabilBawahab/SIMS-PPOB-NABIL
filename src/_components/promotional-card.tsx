@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import { getBanners } from "../api/api-client";
 import { useGetBannersQuery } from "../store/backend-api";
-
-type Banner = { banner_name: string; banner_image: string };
 
 export function BannerCard() {
   // const [banners, setBanners] = useState<Banner[]>([]);
