@@ -18,12 +18,23 @@ export default function DashboardTopUp() {
 
   const handleSubmit = async () => {
     try {
+      const confirmed = confirm(
+        `Apakah kamu yakin ingin Top Up sebesar Rp ${amount.toLocaleString(
+          "id-ID",
+        )}`,
+      );
+
+      if (!confirmed) {
+        alert("Top Up tidak berhasil");
+        return;
+      }
+
       await topUp({
         top_up_amount: amount,
       }).unwrap();
 
       await refetch();
-      alert(`Berhasil Top Up senilai Rp ${amount}`);
+      alert(`Berhasil Top Up senilai Rp ${amount.toLocaleString("id-ID")}`);
       navigate("/dashboard");
     } catch (error) {
       console.error("Top Up tidak berhasil", error);

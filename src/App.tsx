@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { initializeAuth, setToken } from "./store/auth-slice";
 import DashboardProfile from "./pages/dashboard-profile";
 import DashboardTopUp from "./pages/dashboard-topup";
+import DashboardTransaction from "./pages/dashboard-transaction";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ export default function App() {
         <Route index element={<DashboardPage />} />
         <Route path="/dashboard/profile" element={<DashboardProfile />} />
         <Route path="/dashboard/topup" element={<DashboardTopUp />} />
+        <Route
+          path="/dashboard/transaction"
+          element={<DashboardTransaction />}
+        />
       </Route>
     </Routes>
   );

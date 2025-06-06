@@ -31,7 +31,7 @@ export default function DashboardLayout() {
           </section>
           <section className="flex gap-10 items-center font-medium">
             <Link to="/dashboard/topup">Top up</Link>
-            <Link to="/">Transactions</Link>
+            <Link to="/dashboard/transaction">Transactions</Link>
             <Link to="/dashboard/profile">Account</Link>
           </section>
         </div>
