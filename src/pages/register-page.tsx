@@ -2,9 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import ilustrasilogin from "/ilustrasilogin.png";
 import { AtSign, LockKeyhole, User } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { register } from "../api/api-client";
 import type { RootState } from "../store/store";
 import { useSelector } from "react-redux";
+import { useRegisterMutation } from "../store/backend-api";
 
 type Input = {
   placeholder: string;
@@ -41,10 +41,11 @@ const inputs: Input[] = [
 ];
 
 export default function RegisterPage() {
+  //forms => [0] email, [1] nama depan, [2] nama belakang, [3] password, [4] konfirmasi password
   const [forms, setForms] = useState<string[]>(Array(inputs.length).fill(""));
   const [errors, setErrors] = useState<string[]>(Array(inputs.length).fill(""));
+  const [register] = useRegisterMutation();
 
-  //forms => [0] email, [1] nama depan, [2] nama belakang, [3] password, [4] konfirmasi password
   const navigate = useNavigate();
 
   const isAuthenticated = useSelector(
@@ -105,15 +106,15 @@ export default function RegisterPage() {
     if (notComplete) return;
 
     // send data to backend
-    // console.log("data berhasil disubmit", forms);
     try {
       const data = await register({
         email: forms[0],
         first_name: forms[1],
         last_name: forms[2],
         password: forms[3],
-      });
+      }).unwrap();
       alert(data.message);
+      navigate("/login");
     } catch (error) {
       console.error("Error registrasi user", error);
       alert("Error registrasi user, silahkan mencoba kembali di lain waktu");
@@ -149,6 +150,12 @@ export default function RegisterPage() {
                   className="focus:outline-none w-full"
                   type={input.type}
                   onChange={(e) => handleChange(index, e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSubmit();
+                    }
+                  }}
                 />
               </div>
               {errors[index] ? (

@@ -115,13 +115,13 @@ export default function DashboardProfile() {
         ))}
         <button
           onClick={handleSubmit}
-          className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer"
+          className="flex justify-center bg-[#f13b2f] text-white w-full py-2 rounded-sm mt-12 hover:cursor-pointer"
         >
           Simpan
         </button>
         <button
           onClick={handleLogout}
-          className="flex justify-center border border-red-600 text-red-600 w-full py-2 rounded-sm mt-4 hover:cursor-pointer"
+          className="flex justify-center border border-[#f13b2f] text-[#f13b2f] w-full py-2 rounded-sm mt-4 hover:cursor-pointer"
         >
           Logout
         </button>

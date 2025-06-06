@@ -23,6 +23,12 @@ export type BannersResponse = {
   }>;
 };
 
+export type RegisterResponse = {
+  status: number;
+  message: string;
+  data: any;
+};
+
 export type LoginResponse = {
   status: number;
   message: string;
@@ -82,6 +88,29 @@ export type TransactionResponse = {
   };
 };
 
+export type TransactionHistoryResponse = {
+  status: number;
+  message: string;
+  data: {
+    offset: number;
+    limit: number;
+    records: Array<{
+      invoice_number: string;
+      transaction_type: string;
+      description: string;
+      total_amount: number;
+      created_on: string;
+    }>;
+  };
+};
+
+export type RegisterRequest = {
+  email: string;
+  first_name: string;
+  last_name: string;
+  password: string;
+};
+
 export type LoginRequest = { email: string; password: string };
 
 export type UpdateProfileRequest = { first_name: string; last_name: string };
@@ -126,6 +155,13 @@ export const backendApi = createApi({
         body: { email, password },
       }),
     }),
+    register: build.mutation<RegisterResponse, RegisterRequest>({
+      query: ({ email, first_name, last_name, password }) => ({
+        url: "/registration",
+        method: "POST",
+        body: { email, first_name, last_name, password },
+      }),
+    }),
     getProfile: build.query<ProfileResponse, undefined>({
       query: () => "/profile",
     }),
@@ -153,6 +189,9 @@ export const backendApi = createApi({
         body: { service_code },
       }),
     }),
+    getTransactionHistory: build.query<TransactionHistoryResponse, undefined>({
+      query: () => "/transaction/history",
+    }),
   }),
 });
 
@@ -165,4 +204,6 @@ export const {
   useGetBalanceQuery,
   useTopUpMutation,
   useTransactionMutation,
+  useGetTransactionHistoryQuery,
+  useRegisterMutation,
 } = backendApi;

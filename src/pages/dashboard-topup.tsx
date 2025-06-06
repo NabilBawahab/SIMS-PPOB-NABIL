@@ -65,7 +65,7 @@ export default function DashboardTopUp() {
             <div>
               <button
                 onClick={handleSubmit}
-                className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm hover:cursor-pointer"
+                className="flex justify-center bg-[#f13b2f] text-white w-full py-2 rounded-sm hover:cursor-pointer"
               >
                 Top Up
               </button>

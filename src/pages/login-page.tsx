@@ -91,14 +91,7 @@ export default function LoginPage() {
 
     if (notComplete) return;
 
-    // console.log("Berhasil login", forms);
-
     try {
-      // const data = await login({
-      //   email: forms[0].trim(),
-      //   password: forms[1],
-      // });
-      // alert(data.message);
       const result = await login({
         email: forms[0].trim(),
         password: forms[1],
@@ -143,6 +136,12 @@ export default function LoginPage() {
                   type={input.type}
                   onChange={(e) => {
                     handleChange(index, e.target.value);
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                      handleSubmit();
+                    }
                   }}
                 />
               </div>

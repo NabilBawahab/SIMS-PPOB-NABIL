@@ -10,7 +10,11 @@ export function ServicesCard() {
   return (
     <section className="flex justify-between px-6">
       {services?.data.map((service, index) => (
-        <Link key={index} to={`/dashboard/transaction/${service.service_code}`}>
+        <Link
+          key={index}
+          to={`/dashboard/transaction/${service.service_code}`}
+          className="hover:opacity-60 transition-opacity duration-300"
+        >
           <div className="flex flex-col items-center w-24">
             <div className="w-16 h-16">
               <img src={service.service_icon} />

@@ -43,16 +43,18 @@ export function TransactionPage() {
   };
   return (
     <ProfileBalanceCard>
-      <div className="max-w-full">
+      <section className="max-w-full">
         <div className="px-10">
           <p className="font-medium text-gray-900">Pembayaran</p>
           <div className="flex gap-2 items-center mb-10">
             <img src={service.service_icon} className="size-9" />
-            <p className="text-xl font-bold">{service.service_name}</p>
+            <p className="text-xl font-bold text-gray-800">
+              {service.service_name}
+            </p>
           </div>
         </div>
         <div className="flex">
-          <section className="px-10 flex-1">
+          <div className="px-10 flex-1">
             <div>
               <div className="flex items-center border rounded-sm px-3 py-2 mb-4 w-full gap-2">
                 <CreditCard size={16} />
@@ -65,14 +67,14 @@ export function TransactionPage() {
             <div>
               <button
                 onClick={handleSubmit}
-                className="flex justify-center bg-orange-600 text-white w-full py-2 rounded-sm hover:cursor-pointer"
+                className="flex justify-center bg-[#f13b2f] text-white w-full py-2 rounded-sm hover:cursor-pointer"
               >
-                Top Up
+                Bayar
               </button>
             </div>
-          </section>
+          </div>
         </div>
-      </div>
+      </section>
     </ProfileBalanceCard>
   );
 }
