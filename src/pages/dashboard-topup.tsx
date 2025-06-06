@@ -19,7 +19,7 @@ export default function DashboardTopUp() {
   const handleSubmit = async () => {
     try {
       const confirmed = confirm(
-        `Apakah kamu yakin ingin Top Up sebesar Rp ${amount.toLocaleString(
+        `Apakah kamu yakin ingin Top Up sebesar Rp${amount.toLocaleString(
           "id-ID",
         )}`,
       );
@@ -34,7 +34,7 @@ export default function DashboardTopUp() {
       }).unwrap();
 
       await refetch();
-      alert(`Berhasil Top Up senilai Rp ${amount.toLocaleString("id-ID")}`);
+      alert(`Berhasil Top Up senilai Rp${amount.toLocaleString("id-ID")}`);
       navigate("/dashboard");
     } catch (error) {
       console.error("Top Up tidak berhasil", error);

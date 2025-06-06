@@ -27,7 +27,9 @@ export default function DashboardLayout() {
         <div className="flex justify-between items-center h-16 px-8 text-gray-800">
           <section className="flex items-center gap-2">
             <img src="/logo.png" width={25} />
-            <p className="font-sans font-medium">SIMS PPOB</p>
+            <Link to="/dashboard" className="font-sans font-medium">
+              SIMS PPOB NABIL
+            </Link>
           </section>
           <section className="flex gap-10 items-center font-medium">
             <Link to="/dashboard/topup">Top up</Link>

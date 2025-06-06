@@ -69,6 +69,19 @@ export type BalanceResponse = {
   };
 };
 
+export type TransactionResponse = {
+  status: number;
+  message: string;
+  data: {
+    invoice_number: string;
+    service_code: string;
+    service_name: string;
+    transaction_type: string;
+    total_amount: number;
+    created_on: string;
+  };
+};
+
 export type LoginRequest = { email: string; password: string };
 
 export type UpdateProfileRequest = { first_name: string; last_name: string };
@@ -76,6 +89,8 @@ export type UpdateProfileRequest = { first_name: string; last_name: string };
 export type TopUpRequest = {
   top_up_amount: number;
 };
+
+export type TransactionRequest = { service_code: string };
 
 export const backendApi = createApi({
   reducerPath: "backendApi",
@@ -131,6 +146,13 @@ export const backendApi = createApi({
         body: { top_up_amount },
       }),
     }),
+    transaction: build.mutation<TransactionResponse, TransactionRequest>({
+      query: ({ service_code }) => ({
+        url: "/transaction",
+        method: "POST",
+        body: { service_code },
+      }),
+    }),
   }),
 });
 
@@ -142,4 +164,5 @@ export const {
   useUpdateProfileMutation,
   useGetBalanceQuery,
   useTopUpMutation,
+  useTransactionMutation,
 } = backendApi;

@@ -10,6 +10,7 @@ import { initializeAuth, setToken } from "./store/auth-slice";
 import DashboardProfile from "./pages/dashboard-profile";
 import DashboardTopUp from "./pages/dashboard-topup";
 import DashboardTransaction from "./pages/dashboard-transaction";
+import { TransactionPage } from "./pages/transaction-page";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ export default function App() {
         <Route
           path="/dashboard/transaction"
           element={<DashboardTransaction />}
+        />
+        <Route
+          path="/dashboard/transaction/:serviceCode"
+          element={<TransactionPage />}
         />
       </Route>
     </Routes>
