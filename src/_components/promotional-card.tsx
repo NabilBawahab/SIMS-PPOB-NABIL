@@ -1,16 +1,6 @@
 import { useGetBannersQuery } from "../store/backend-api";
 
 export function BannerCard() {
-  // const [banners, setBanners] = useState<Banner[]>([]);
-
-  // useEffect(() => {
-  //   async function fetchBanners() {
-  //     const data = await getBanners();
-  //     setBanners(data.data || []);
-  //   }
-  //   fetchBanners();
-  // }, []);
-
   const { data: banners, error, isLoading } = useGetBannersQuery(undefined);
 
   if (isLoading) return <p>Loading...</p>;

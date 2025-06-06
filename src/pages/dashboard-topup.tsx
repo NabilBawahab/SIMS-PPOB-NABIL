@@ -41,8 +41,6 @@ export default function DashboardTopUp() {
       alert("Top Up gagal, mohon dicoba kembali");
     }
   };
-  //   const stringlocale = amount.toLocaleString("id-ID");
-  //   console.log({ stringlocale });
 
   return (
     <ProfileBalanceCard>

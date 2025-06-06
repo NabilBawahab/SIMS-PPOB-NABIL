@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Avatar } from "../components/avatar";
 import { AtSign, Pencil, User } from "lucide-react";
 import {
+  backendApi,
   useGetProfileQuery,
   useUpdateProfileImageMutation,
   useUpdateProfileMutation,
@@ -65,6 +66,7 @@ export default function DashboardProfile() {
 
   const handleLogout = () => {
     dispatch(logout());
+    dispatch(backendApi.util.resetApiState());
     navigate("/login");
   };
 
