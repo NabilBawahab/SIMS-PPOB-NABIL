@@ -37,10 +37,6 @@ Proyek ini dibangun menggunakan _tech stack_ berikut:
 - **Development Tools:** Vite, TypeScript, ESLint
 - **Avatar Generation:** DiceBear (untuk _profile picture_ default)
 
-## API
-
-- **Dokumentasi API:** [https://api-doc-tht.nutech-integrasi.com](https://api-doc-tht.nutech-integrasi.com)
-
 ## Cara Menjalankan Proyek Secara Lokal
 
 Untuk menjalankan aplikasi ini di lingkungan lokal, ikuti langkah-langkah berikut:
