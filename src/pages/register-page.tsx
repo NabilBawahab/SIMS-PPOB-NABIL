@@ -122,7 +122,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex flex-col-reverse justify-between md:flex-row gap-10 md:gap-0 mb-10">
+    <main className="flex flex-col-reverse justify-between md:flex-row gap-10 md:gap-0 md:mb-0 mb-10">
       <section className="flex flex-1 flex-col items-center justify-center gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />

@@ -107,7 +107,7 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-col-reverse mb-10 gap-10 justify-between md:flex-row md:gap-0">
+    <main className="flex flex-col-reverse mb-10 md:mb-0 gap-10 justify-between md:flex-row md:gap-0">
       <section className="flex flex-1 flex-col items-center justify-center gap-8">
         <div className="flex items-center gap-2 justify-center mb-2">
           <img src="/logo.png" />
